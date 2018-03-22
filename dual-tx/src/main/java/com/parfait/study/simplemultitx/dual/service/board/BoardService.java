@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional("memberTxManager")
+@Transactional("boardTxManager")
 public class BoardService {
 
     private final BoardMapper boardMapper;
@@ -19,21 +19,18 @@ public class BoardService {
     }
 
     public int saveWithRequired() {
-        return boardMapper.insert(Board.createForTest(1));
-    }
-
-    public int saveWithRequiredException() {
         boardMapper.insert(Board.createForTest(1));
         throw new IllegalStateException("this method throw exception");
     }
 
-    @Transactional(transactionManager = "memberTxManager", propagation = Propagation.REQUIRES_NEW)
+    @Transactional(transactionManager = "boardTxManager", propagation = Propagation.REQUIRES_NEW)
     public int saveWithRequiresNew() {
-        return boardMapper.insert(Board.createForTest(1));
+        boardMapper.insert(Board.createForTest(1));
+        throw new IllegalStateException("this method throw exception");
     }
 
-    @Transactional(transactionManager = "memberTxManager", propagation = Propagation.REQUIRES_NEW)
-    public int saveWithRequiresNewException() {
+    @Transactional(transactionManager = "boardTxManager", propagation = Propagation.NESTED)
+    public int saveWithNested() {
         boardMapper.insert(Board.createForTest(1));
         throw new IllegalStateException("this method throw exception");
     }

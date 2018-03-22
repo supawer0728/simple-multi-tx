@@ -19,26 +19,56 @@ public class TestController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping("/required")
-    public void required() {
-        logicService.saveWithRequired();
+    @RequestMapping("/required-required")
+    public void required_required() {
+        logicService.required_required();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping("/required-exception")
+    @RequestMapping("/required-requires-new")
+    public void required_requiresNew() {
+        logicService.required_requiresNew();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("/required-nested")
+    public void required_nested() {
+        logicService.required_nested();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("/requires-new-required")
+    public void requiresNew_required() {
+        logicService.requiresNew_required();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("/requires-new-requires-new")
+    public void requires_new_requires_new() {
+        logicService.requiresNew_requiresNew();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("/requires-new-nested")
+    public void requires_new_nested() {
+        logicService.requiresNew_nested();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("/nested-required")
+    public void nested_required() {
+        logicService.nested_required();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("/nested-requires-new")
     public void requiredException() {
-        logicService.saveWithRequiredException();
+        logicService.nested_requiresNew();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping("/requires-new")
+    @RequestMapping("/nested-nested")
     public void requiresNew() {
-        logicService.saveWithRequiresNew();
-    }
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping("/requires-new-exception")
-    public void requiresNewException() {
-        logicService.saveWithRequiresNewException();
+        logicService.nested_nested();
     }
 }

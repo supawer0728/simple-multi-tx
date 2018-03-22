@@ -7,21 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * LogicService에 transactional이 없는 경우
- * saveWithRequiredException : member는 commit, board는 rollback
- * saveWithRequiresNewException : member는 commit, board는 rollback
- * <p>
- * LogicService에 transactional이 있는 경우
- * saveWithRequiredException: member - rollback, board - rollback
- * saveWithRequiresNewException : member는 commit, board는 rollback
- * <p>
- * LogicSerivce에 transactional이 있고, BoardService에서 memberTxManager를 쓰는 경우
- * saveWithRequiredException: member - rollback, board - commit
- * saveWithRequiresNewException : member는 commit, board는 commit
- */
 @Service
-@Transactional
+@Transactional("boardTxManager")
 public class LogicService {
 
     private final MemberService memberService;
@@ -33,24 +20,48 @@ public class LogicService {
         this.boardService = boardService;
     }
 
-
-    public void saveWithRequired() {
+    public void required_required() {
         memberService.saveWithRequired();
         boardService.saveWithRequired();
     }
 
-    public void saveWithRequiredException() {
+    public void required_requiresNew() {
         memberService.saveWithRequired();
-        boardService.saveWithRequiredException();
+        boardService.saveWithRequiresNew();
     }
 
-    public void saveWithRequiresNew() {
+    public void required_nested() {
+        memberService.saveWithRequired();
+        boardService.saveWithNested();
+    }
+
+    public void requiresNew_required() {
+        memberService.saveWithRequiresNew();
+        boardService.saveWithRequired();
+    }
+
+    public void requiresNew_requiresNew() {
         memberService.saveWithRequiresNew();
         boardService.saveWithRequiresNew();
     }
 
-    public void saveWithRequiresNewException() {
+    public void requiresNew_nested() {
         memberService.saveWithRequiresNew();
-        boardService.saveWithRequiresNewException();
+        boardService.saveWithNested();
+    }
+
+    public void nested_required() {
+        memberService.saveWithNested();
+        boardService.saveWithRequired();
+    }
+
+    public void nested_requiresNew() {
+        memberService.saveWithNested();
+        boardService.saveWithRequiresNew();
+    }
+
+    public void nested_nested() {
+        memberService.saveWithNested();
+        boardService.saveWithNested();
     }
 }

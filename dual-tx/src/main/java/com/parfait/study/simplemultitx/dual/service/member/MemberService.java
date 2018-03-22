@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
-@Transactional(transactionManager = "memberTxManager")
+//@Transactional(transactionManager = "memberTxManager")
+@Transactional("boardTxManager")
 public class MemberService {
 
     private final MemberMapper memberMapper;
@@ -25,12 +24,15 @@ public class MemberService {
         memberMapper.insert(Member.createForTest(1));
     }
 
-    @Transactional(transactionManager = "memberTxManager", propagation = Propagation.REQUIRES_NEW)
+    //    @Transactional(transactionManager = "memberTxManager", propagation = Propagation.REQUIRES_NEW)
+    @Transactional(transactionManager = "boardTxManager", propagation = Propagation.REQUIRES_NEW)
     public void saveWithRequiresNew() {
         memberMapper.insert(Member.createForTest(1));
     }
 
-    public List<Member> getAll() {
-        return memberMapper.findAll();
+    //    @Transactional(transactionManager = "memberTxManager", propagation = Propagation.NESTED)
+    @Transactional(transactionManager = "boardTxManager", propagation = Propagation.NESTED)
+    public void saveWithNested() {
+        memberMapper.insert(Member.createForTest(1));
     }
 }
