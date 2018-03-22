@@ -1,0 +1,19 @@
+spring:
+  jta:
+    enabled: true
+    atomikos:
+      datasource:
+        member:
+          unique-resource-name: memberDataSource
+          xa-data-source-class-name: com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
+          xa-properties:
+            user: root
+            password: multitxtest
+            url: jdbc:mysql://127.0.0.1:11306/multi_tx_test?useSSL=false
+        board:
+          unique-resource-name: boardDataSource
+          xa-data-source-class-name: com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
+          xa-properties:
+            user: root
+            password: multitxtest
+            url: jdbc:mysql://127.0.0.1:11307/multi_tx_test?useSSL=false

@@ -1,2 +1,2 @@
-include 'dual-tx', 'chained-tx'
+include 'dual-tx', 'chained-tx', 'jta-tx'
 
