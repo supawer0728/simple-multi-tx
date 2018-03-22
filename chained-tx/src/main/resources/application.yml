@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    hikari1:
+      username: root
+      password: multitxtest
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:11306/multi_tx_test?useSSL=false
+    hikari2:
+      url:
+      username: root
+      password: multitxtest
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:11307/multi_tx_test?useSSL=false
